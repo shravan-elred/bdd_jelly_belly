@@ -16,6 +16,23 @@ class BeanModel extends Bean {
     required super.kosher,
   });
 
+  factory BeanModel.fromEntity(Bean entity) {
+    return BeanModel(
+      id: entity.id,
+      groupName: entity.groupName,
+      ingredients: entity.ingredients,
+      flavorName: entity.flavorName,
+      description: entity.description,
+      colorGroup: entity.colorGroup,
+      backgroundColor: entity.backgroundColor,
+      imageUrl: entity.imageUrl,
+      glutenFree: entity.glutenFree,
+      sugarFree: entity.sugarFree,
+      seasonal: entity.seasonal,
+      kosher: entity.kosher,
+    );
+  }
+
   factory BeanModel.fromMap(Map<String, dynamic> map) {
     return BeanModel(
       id: map["beanId"] as int,
