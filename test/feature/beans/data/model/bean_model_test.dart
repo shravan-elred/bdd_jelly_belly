@@ -49,7 +49,6 @@ void main() {
 
   test("bean model toMap method unit test", () async {
     // arrange
-
     final source = await Fixture.fromPath(
       "test/feature/beans/fixture/bean_model_fixture.json",
     );

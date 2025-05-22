@@ -1,4 +1,4 @@
-import 'package:bdd_jelly_belly/feature/beans/domain/entity/bean.dart';
+import '../../domain/entity/bean.dart';
 
 class BeanModel extends Bean {
   const BeanModel({

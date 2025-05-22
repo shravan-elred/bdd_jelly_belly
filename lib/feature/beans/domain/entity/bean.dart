@@ -30,5 +30,18 @@ class Bean extends Equatable {
   final bool kosher;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+    id,
+    groupName,
+    ingredients,
+    flavorName,
+    description,
+    colorGroup,
+    backgroundColor,
+    imageUrl,
+    glutenFree,
+    sugarFree,
+    seasonal,
+    kosher,
+  ];
 }

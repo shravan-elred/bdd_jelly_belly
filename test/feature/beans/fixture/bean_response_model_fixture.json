@@ -1,0 +1,36 @@
+{
+  "totalCount": 114,
+  "pageSize": 1,
+  "currentPage": 1,
+  "totalPages": 114,
+  "items": [
+    {
+      "beanId": 1,
+      "groupName": ["Jelly Belly Official Flavors", "Soda Pop Shoppe® Flavors"],
+      "ingredients": [
+        "Sugar",
+        "Corn Syrup",
+        "Modified Food Starch",
+        "Contains 2% Or Less Of The Following:",
+        "Citric Acid",
+        "Sodium Lactate",
+        "Natural & Artificial Flavor",
+        "Color Added",
+        "Yellow 5",
+        "Blue 1",
+        "Beeswax",
+        "Carnauba Wax",
+        "Confectioner'S Glaze"
+      ],
+      "flavorName": "7Up",
+      "description": "The Refreshing And Crisp Flavor Of Lemon Lime Soda.",
+      "colorGroup": "khaki",
+      "backgroundColor": "#CEDC91",
+      "imageUrl": "https://cdn-tp1.mozu.com/9046-m1/cms/files/ab692677-5471-4863-91a8-659363ae4cc4",
+      "glutenFree": false,
+      "sugarFree": false,
+      "seasonal": false,
+      "kosher": true
+    }
+  ]
+}
