@@ -52,8 +52,9 @@ void main() {
     test('should perform a GET request on a URL with pageSize & currentPage '
         'being the endpoint and with application/json header', () async {
       // arrange
+      setUpMockClientSuccess200();
       // act
-      dataSource.getBeans(pageSize: pageSize, currentPage: currentPage);
+      await dataSource.getBeans(pageSize: pageSize, currentPage: currentPage);
       // assert
       verify(
         mockClient.get(
