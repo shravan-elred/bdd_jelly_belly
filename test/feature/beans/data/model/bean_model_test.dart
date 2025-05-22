@@ -38,7 +38,7 @@ void main() {
       kosher: true,
     );
     // act
-    final source = await Fixture.fromPath(
+    final source = Fixture.fromPath(
       "test/feature/beans/fixture/bean_model_fixture.json",
     );
     final map = jsonDecode(source);
@@ -49,7 +49,7 @@ void main() {
 
   test("bean model toMap method unit test", () async {
     // arrange
-    final source = await Fixture.fromPath(
+    final source = Fixture.fromPath(
       "test/feature/beans/fixture/bean_model_fixture.json",
     );
     final matcher = jsonDecode(source);
