@@ -80,7 +80,10 @@ void main() {
     );
     test('should call SharedPreferences to cache the data', () async {
       // arrange
-      final matcher = jsonEncode(model);
+      when(
+        mockSharedPreferences.setString(any, any),
+      ).thenAnswer((_) async => true);
+      final matcher = jsonEncode(model.toMap());
       // act
       await dataSource.cacheBeans(model);
       // assert
@@ -90,6 +93,17 @@ void main() {
           matcher,
         ),
       );
+    });
+
+    test('should throw a CacheExeption when the value is not cached', () async {
+      // arrange
+      when(
+        mockSharedPreferences.setString(any, any),
+      ).thenAnswer((_) async => false);
+      // act
+      final call = dataSource.cacheBeans;
+      // assert
+      expect(() => call(model), throwsA(TypeMatcher<CacheException>()));
     });
   });
 }
