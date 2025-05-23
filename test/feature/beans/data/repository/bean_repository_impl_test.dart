@@ -112,12 +112,7 @@ void main() {
               currentPage: currentPage,
             ),
           );
-          verify(
-            mockLocalDataSource.getBeans(
-              pageSize: pageSize,
-              currentPage: currentPage,
-            ),
-          );
+          verify(mockLocalDataSource.cacheBeans(matcher));
         },
       );
       test(

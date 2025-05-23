@@ -22,7 +22,28 @@ class BeanRepositoryImpl implements BeanRepository {
   Future<Either<Failure, BeanResponseModel>> getBeans({
     int pageSize = 10,
     int currentPage = 1,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteResponse = await remoteDataSource.getBeans(
+          pageSize: pageSize,
+          currentPage: currentPage,
+        );
+        localDataSource.cacheBeans(remoteResponse);
+        return Right(remoteResponse);
+      } catch (e) {
+        return Left(ServerFailure());
+      }
+    } else {
+      try {
+        final localResponse = await localDataSource.getBeans(
+          currentPage: currentPage,
+          pageSize: pageSize,
+        );
+        return Right(localResponse);
+      } catch (e) {
+        return Left(CacheFailure());
+      }
+    }
   }
 }
