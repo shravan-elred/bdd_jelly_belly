@@ -20,15 +20,61 @@ class BeanViewModel extends ChangeNotifier {
   int get totalCount => _totalCount;
   int _totalCount = 0;
   int get pageSize => _pageSize;
-  int _pageSize = 0;
+  int _pageSize = 10;
   int get currentPage => _currentPage;
-  int _currentPage = 0;
+  int _currentPage = 1;
   int get totalPages => _totalPages;
   int _totalPages = 0;
 
   final GetBeansUseCase getBeansUseCase;
 
-  Future<void> fetchBeans() async {}
+  Future<void> fetchBeans() async {
+    if (_isLoading) return;
+    _isLoading = true;
+    notifyListeners();
+    final response = await getBeansUseCase.call(
+      GetBeansUseCaseParams(pageSize: _pageSize, currentPage: _currentPage),
+    );
+    response.fold(
+      (l) {
+        _isLoading = false;
+        notifyListeners();
+      },
+      (r) {
+        _beans = r.items;
+        _currentPage = r.currentPage;
+        _totalCount = r.totalCount;
+        _pageSize = r.pageSize;
+        _totalPages = r.totalPages;
+        _isLoading = false;
+        notifyListeners();
+      },
+    );
+  }
 
-  Future<void> fetchMoreBeans() async {}
+  Future<void> fetchMoreBeans() async {
+    if (_isLoading) return;
+    if (_isLoadingMore) return;
+    if (_totalPages <= currentPage) return;
+    _isLoadingMore = true;
+    notifyListeners();
+    final response = await getBeansUseCase.call(
+      GetBeansUseCaseParams(pageSize: _pageSize, currentPage: _currentPage + 1),
+    );
+    response.fold(
+      (l) {
+        _isLoading = false;
+        notifyListeners();
+      },
+      (r) {
+        _beans = [..._beans, ...r.items];
+        _currentPage = r.currentPage;
+        _totalCount = r.totalCount;
+        _pageSize = r.pageSize;
+        _totalPages = r.totalPages;
+        _isLoading = false;
+        notifyListeners();
+      },
+    );
+  }
 }

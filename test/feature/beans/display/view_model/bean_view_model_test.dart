@@ -52,10 +52,10 @@ void main() {
       // arrange
       when(
         mockGetBeansUseCase.call(
-          GetBeansUseCaseParams(pageSize: 1, currentPage: 1),
+          GetBeansUseCaseParams(pageSize: 10, currentPage: 1),
         ),
       ).thenAnswer((_) async {
-        await Future.delayed(Durations.medium1);
+        await Future.delayed(Duration(milliseconds: 100));
         return Right(mockGetBeansResponse);
       });
       // act
@@ -77,7 +77,7 @@ void main() {
       // arrange
       when(
         mockGetBeansUseCase.call(
-          GetBeansUseCaseParams(pageSize: 1, currentPage: 1),
+          GetBeansUseCaseParams(pageSize: 10, currentPage: 1),
         ),
       ).thenAnswer((_) async => Left(ServerFailure()));
       // act
@@ -85,45 +85,44 @@ void main() {
       // assert
       expect(beanViewModel.isLoading, false);
     });
-  });
 
-  test('fetchMoreBeans success state', () async {
-    // arrange
-    when(
-      mockGetBeansUseCase.call(
-        GetBeansUseCaseParams(pageSize: 10, currentPage: 1),
-      ),
-    ).thenAnswer((_) async {
-      return Right(mockGetBeansResponse);
+    test('fetchMoreBeans success state', () async {
+      // arrange
+      when(
+        mockGetBeansUseCase.call(
+          GetBeansUseCaseParams(pageSize: 10, currentPage: 1),
+        ),
+      ).thenAnswer((_) async {
+        return Right(mockGetBeansResponse);
+      });
+      when(
+        mockGetBeansUseCase.call(
+          GetBeansUseCaseParams(pageSize: 10, currentPage: 2),
+        ),
+      ).thenAnswer((_) async {
+        await Future.delayed(Durations.medium1);
+        return Right(mockGetBeansMoreResponse);
+      });
+      // act
+      await beanViewModel.fetchBeans();
+      final future = beanViewModel.fetchMoreBeans();
+      expect(beanViewModel.isLoadingMore, true);
+      await future;
+      // assert
+      expect(beanViewModel.totalPages, mockGetBeansMoreResponse.totalPages);
+      expect(beanViewModel.pageSize, mockGetBeansMoreResponse.pageSize);
+      expect(beanViewModel.totalCount, mockGetBeansMoreResponse.totalCount);
+      expect(beanViewModel.currentPage, mockGetBeansMoreResponse.currentPage);
+      expect(
+        beanViewModel.beans,
+        equals(
+          UnmodifiableListView([
+            ...mockGetBeansResponse.items,
+            ...mockGetBeansMoreResponse.items,
+          ]),
+        ),
+      );
     });
-    when(
-      mockGetBeansUseCase.call(
-        GetBeansUseCaseParams(pageSize: 10, currentPage: 2),
-      ),
-    ).thenAnswer((_) async {
-      await Future.delayed(Durations.medium1);
-      return Right(mockGetBeansMoreResponse);
-    });
-    // act
-    await beanViewModel.fetchBeans();
-    final future = beanViewModel.fetchMoreBeans();
-    expect(beanViewModel.isLoadingMore, true);
-    await future;
-    // assert
-    expect(beanViewModel.totalPages, mockGetBeansMoreResponse.totalPages);
-    expect(beanViewModel.pageSize, mockGetBeansMoreResponse.pageSize);
-    expect(beanViewModel.totalCount, mockGetBeansMoreResponse.totalCount);
-    expect(beanViewModel.currentPage, mockGetBeansMoreResponse.currentPage);
-    expect(
-      beanViewModel.beans,
-      equals(
-        UnmodifiableListView([
-          ...mockGetBeansResponse.items,
-          ...mockGetBeansMoreResponse.items,
-        ]),
-      ),
-    );
-
     test('fetchMoreBeans failure state', () async {
       // arrange
       when(
@@ -137,7 +136,7 @@ void main() {
         mockGetBeansUseCase.call(
           GetBeansUseCaseParams(pageSize: 10, currentPage: 2),
         ),
-      ).thenThrow(ServerFailure());
+      ).thenAnswer((_) async => Left(ServerFailure()));
       // act
       await beanViewModel.fetchBeans();
       await beanViewModel.fetchMoreBeans();
