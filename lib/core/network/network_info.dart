@@ -5,7 +5,7 @@ abstract class NetworkInfo {
 }
 
 class NetworkInfoImpl implements NetworkInfo {
-  const NetworkInfoImpl(this.connectivity);
+  const NetworkInfoImpl({required this.connectivity});
 
   final Connectivity connectivity;
 
