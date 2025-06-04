@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'feature/beans/display/view/bean_screen_provider.dart';
+
 class Application extends StatelessWidget {
   const Application({super.key});
 
@@ -7,7 +9,7 @@ class Application extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.light(useMaterial3: true),
-      home: Container(),
+      home: BeanScreenProvider(),
     );
   }
 }
