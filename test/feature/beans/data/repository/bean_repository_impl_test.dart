@@ -61,13 +61,14 @@ void main() {
         ),
       ),
     );
-    test('should check if the device is online', () async {
-      // arrange
-      when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-      // act
-      repository.getBeans();
-      // assert
-      verify(mockNetworkInfo.isConnected);
+    runTestOnline(() {
+      test('should check if the device is online', () async {
+        // arrange
+        // act
+        repository.getBeans();
+        // assert
+        verify(mockNetworkInfo.isConnected);
+      });
     });
 
     runTestOnline(() {
@@ -88,6 +89,9 @@ void main() {
           );
           // assert
           expect(actual, equals(Right(matcher)));
+          verify(
+            repository.getBeans(pageSize: pageSize, currentPage: currentPage),
+          );
         },
       );
       test(

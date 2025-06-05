@@ -78,6 +78,14 @@ void main() {
         );
         // assert
         expect(actual, equals(matcher));
+        verify(
+          mockClient.get(
+            Uri.parse(
+              "https://jellybellywikiapi.onrender.com/api/Beans?pageSize=$pageSize&currentPage=$currentPage",
+            ),
+            headers: {'Content-Type': 'application/json'},
+          ),
+        );
       },
     );
 

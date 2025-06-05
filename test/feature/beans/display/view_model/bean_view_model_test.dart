@@ -46,6 +46,7 @@ void main() {
       // assert
       expect(beanViewModel.isLoading, false);
       expect(beanViewModel.beans.isEmpty, true);
+      verifyZeroInteractions(mockGetBeansMoreResponse);
     });
 
     test('fetchBeans success state', () async {
@@ -71,6 +72,11 @@ void main() {
         beanViewModel.beans,
         equals(UnmodifiableListView(mockGetBeansResponse.items)),
       );
+      verify(
+        mockGetBeansUseCase.call(
+          GetBeansUseCaseParams(pageSize: 10, currentPage: 1),
+        ),
+      );
     });
 
     test('fetchBeans failure state', () async {
@@ -83,6 +89,11 @@ void main() {
       // act
       await beanViewModel.fetchBeans();
       // assert
+      verify(
+        mockGetBeansUseCase.call(
+          GetBeansUseCaseParams(pageSize: 10, currentPage: 1),
+        ),
+      );
       expect(beanViewModel.isLoading, false);
     });
 
@@ -122,6 +133,16 @@ void main() {
           ]),
         ),
       );
+      verify(
+        mockGetBeansUseCase.call(
+          GetBeansUseCaseParams(pageSize: 10, currentPage: 1),
+        ),
+      );
+      verify(
+        mockGetBeansUseCase.call(
+          GetBeansUseCaseParams(pageSize: 10, currentPage: 2),
+        ),
+      );
     });
     test('fetchMoreBeans failure state', () async {
       // arrange
@@ -142,6 +163,11 @@ void main() {
       await beanViewModel.fetchMoreBeans();
       // assert
       expect(beanViewModel.isLoading, false);
+      verify(
+        mockGetBeansUseCase.call(
+          GetBeansUseCaseParams(pageSize: 10, currentPage: 2),
+        ),
+      );
     });
   });
 }
