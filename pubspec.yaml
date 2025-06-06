@@ -28,6 +28,7 @@ dev_dependencies:
   mockito: ^5.4.6
   bdd_widget_test: ^1.8.1
   build_runner: ^2.4.15
+  mocktail_image_network: ^1.2.0
 
 flutter:
   uses-material-design: true

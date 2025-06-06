@@ -14,7 +14,7 @@ import 'package:mockito/mockito.dart';
 import '../../../../fixture/fixture.dart';
 import 'bean_view_model_test.mocks.dart';
 
-@GenerateMocks([GetBeansUseCase])
+@GenerateMocks([GetBeansUseCase, BeanViewModel])
 void main() {
   late BeanViewModel beanViewModel;
   late MockGetBeansUseCase mockGetBeansUseCase;
@@ -46,7 +46,7 @@ void main() {
       // assert
       expect(beanViewModel.isLoading, false);
       expect(beanViewModel.beans.isEmpty, true);
-      verifyZeroInteractions(mockGetBeansMoreResponse);
+      verifyZeroInteractions(mockGetBeansUseCase);
     });
 
     test('fetchBeans success state', () async {

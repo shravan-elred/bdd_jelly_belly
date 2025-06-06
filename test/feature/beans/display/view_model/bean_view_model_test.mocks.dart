@@ -3,11 +3,16 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i6;
+import 'dart:collection' as _i5;
+import 'dart:ui' as _i11;
 
-import 'package:bdd_jelly_belly/core/error/failures.dart' as _i6;
+import 'package:bdd_jelly_belly/core/error/failures.dart' as _i7;
 import 'package:bdd_jelly_belly/feature/beans/data/model/bean_response_model.dart'
-    as _i7;
+    as _i8;
+import 'package:bdd_jelly_belly/feature/beans/display/view_model/bean_view_model.dart'
+    as _i9;
+import 'package:bdd_jelly_belly/feature/beans/domain/entity/bean.dart' as _i10;
 import 'package:bdd_jelly_belly/feature/beans/domain/repository/bean_repository.dart'
     as _i2;
 import 'package:bdd_jelly_belly/feature/beans/domain/usecase/get_beans_use_case.dart'
@@ -40,6 +45,18 @@ class _FakeEither_1<L, R> extends _i1.SmartFake implements _i3.Either<L, R> {
     : super(parent, parentInvocation);
 }
 
+class _FakeGetBeansUseCase_2 extends _i1.SmartFake
+    implements _i4.GetBeansUseCase {
+  _FakeGetBeansUseCase_2(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
+class _FakeUnmodifiableListView_3<E> extends _i1.SmartFake
+    implements _i5.UnmodifiableListView<E> {
+  _FakeUnmodifiableListView_3(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [GetBeansUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -60,19 +77,126 @@ class MockGetBeansUseCase extends _i1.Mock implements _i4.GetBeansUseCase {
           as _i2.BeanRepository);
 
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.BeanResponseModel>> call(
+  _i6.Future<_i3.Either<_i7.Failure, _i8.BeanResponseModel>> call(
     _i4.GetBeansUseCaseParams? params,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#call, [params]),
-            returnValue: _i5.Future<
-              _i3.Either<_i6.Failure, _i7.BeanResponseModel>
+            returnValue: _i6.Future<
+              _i3.Either<_i7.Failure, _i8.BeanResponseModel>
             >.value(
-              _FakeEither_1<_i6.Failure, _i7.BeanResponseModel>(
+              _FakeEither_1<_i7.Failure, _i8.BeanResponseModel>(
                 this,
                 Invocation.method(#call, [params]),
               ),
             ),
           )
-          as _i5.Future<_i3.Either<_i6.Failure, _i7.BeanResponseModel>>);
+          as _i6.Future<_i3.Either<_i7.Failure, _i8.BeanResponseModel>>);
+}
+
+/// A class which mocks [BeanViewModel].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockBeanViewModel extends _i1.Mock implements _i9.BeanViewModel {
+  MockBeanViewModel() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.GetBeansUseCase get getBeansUseCase =>
+      (super.noSuchMethod(
+            Invocation.getter(#getBeansUseCase),
+            returnValue: _FakeGetBeansUseCase_2(
+              this,
+              Invocation.getter(#getBeansUseCase),
+            ),
+          )
+          as _i4.GetBeansUseCase);
+
+  @override
+  _i5.UnmodifiableListView<_i10.Bean> get beans =>
+      (super.noSuchMethod(
+            Invocation.getter(#beans),
+            returnValue: _FakeUnmodifiableListView_3<_i10.Bean>(
+              this,
+              Invocation.getter(#beans),
+            ),
+          )
+          as _i5.UnmodifiableListView<_i10.Bean>);
+
+  @override
+  bool get isLoading =>
+      (super.noSuchMethod(Invocation.getter(#isLoading), returnValue: false)
+          as bool);
+
+  @override
+  bool get isLoadingMore =>
+      (super.noSuchMethod(Invocation.getter(#isLoadingMore), returnValue: false)
+          as bool);
+
+  @override
+  int get totalCount =>
+      (super.noSuchMethod(Invocation.getter(#totalCount), returnValue: 0)
+          as int);
+
+  @override
+  int get pageSize =>
+      (super.noSuchMethod(Invocation.getter(#pageSize), returnValue: 0) as int);
+
+  @override
+  int get currentPage =>
+      (super.noSuchMethod(Invocation.getter(#currentPage), returnValue: 0)
+          as int);
+
+  @override
+  int get totalPages =>
+      (super.noSuchMethod(Invocation.getter(#totalPages), returnValue: 0)
+          as int);
+
+  @override
+  bool get hasListeners =>
+      (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
+          as bool);
+
+  @override
+  _i6.Future<void> fetchBeans() =>
+      (super.noSuchMethod(
+            Invocation.method(#fetchBeans, []),
+            returnValue: _i6.Future<void>.value(),
+            returnValueForMissingStub: _i6.Future<void>.value(),
+          )
+          as _i6.Future<void>);
+
+  @override
+  _i6.Future<void> fetchMoreBeans() =>
+      (super.noSuchMethod(
+            Invocation.method(#fetchMoreBeans, []),
+            returnValue: _i6.Future<void>.value(),
+            returnValueForMissingStub: _i6.Future<void>.value(),
+          )
+          as _i6.Future<void>);
+
+  @override
+  void addListener(_i11.VoidCallback? listener) => super.noSuchMethod(
+    Invocation.method(#addListener, [listener]),
+    returnValueForMissingStub: null,
+  );
+
+  @override
+  void removeListener(_i11.VoidCallback? listener) => super.noSuchMethod(
+    Invocation.method(#removeListener, [listener]),
+    returnValueForMissingStub: null,
+  );
+
+  @override
+  void dispose() => super.noSuchMethod(
+    Invocation.method(#dispose, []),
+    returnValueForMissingStub: null,
+  );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+    Invocation.method(#notifyListeners, []),
+    returnValueForMissingStub: null,
+  );
 }
